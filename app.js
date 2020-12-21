@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
-/*
+
 // MongoDB
 const config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
 
@@ -39,4 +39,3 @@ app.use((req, res) => {
     res.render('404', { title: "404" });
 });
 
-*/
