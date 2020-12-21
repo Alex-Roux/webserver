@@ -1,8 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const routes = require('./routes/routes.js');
 
-// MongoDB
+/*// MongoDB
 const config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
 
 mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -10,7 +11,7 @@ mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true
     console.log("Connected to db.");
     app.listen(3001);
 });
-
+*/
 
 // create the express app
 const app = express();
@@ -31,13 +32,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Logger middleware
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     console.log("New request");
-    console.log("Hostname: " + req.url);
-    console.log("URL: " + req.method + " " + req.url);
+    //console.log("Hostname: " + req.hostname);
+    console.log("" + req.method + " " + req.url);
     next();
-});
+});*/
 
+app.use('/', routes);
 
 // 404
 app.use((req, res) => {
