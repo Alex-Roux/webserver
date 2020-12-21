@@ -31,7 +31,12 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Logger middleware
-
+app.use((req, res, next) => {
+    console.log("New request");
+    console.log("Hostname: " + req.url);
+    console.log("URL: " + req.method + " " + req.url);
+    next();
+});
 
 
 // 404
