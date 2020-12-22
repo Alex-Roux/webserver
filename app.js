@@ -2,6 +2,34 @@ const express = require("express");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const routes = require("./routes/routes.js");
+const readline = require("readline");
+const colors = require("colors");
+
+function log(string, formalized) {
+	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
+    if(!formalized) date = "";
+	var logLine = date.grey + string;
+	console.log(logLine);
+    const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m)/gmu); // angry-face
+    logLine = logLine.replace(regex, "");
+	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) throw err;});
+}
+
+// rl interface creation for command input
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+// Color theme
+colors.setTheme({
+    info: "cyan",
+    warn: "yellow",
+    error: "red"
+});
+
+rl.prompt();
+log("", 0);
+
 
 /*// MongoDB
 const config = JSON.parse(fs.readFileSync("./config.json", "utf8"))
