@@ -8,18 +8,14 @@ const colors = require("colors");
 function log(string, formalized) {
 	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
     if(!formalized) date = "";
-	var logLine = date.grey + string;
-	console.log(logLine);
-    const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m)/gmu); // angry-face
-    logLine = logLine.replace(regex, "");
-	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) throw err;});
-}
 
 // rl interface creation for command input
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+
+
 // Color theme
 colors.setTheme({
     info: "cyan",
@@ -27,16 +23,29 @@ colors.setTheme({
     error: "red"
 });
 
+// Log function
+function log(string, formalized) {
+	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
+    if(!formalized) { date = ""; }
+	var logLine = date.grey + string;
+	console.log(logLine);
+    const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m)/gmu); // angry-face
+    logLine = logLine.replace(regex, "");
+	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) { throw err; }});
+}
+
+
 rl.prompt();
 log("", 0);
 
+log("Starting...".info, 1);
 
 /*// MongoDB
 const config = JSON.parse(fs.readFileSync("./config.json", "utf8"))
 
 mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then((result) => {
-    console.log("Connected to db.");
+    log("Connected to MongoDB.".info, 1);
     app.listen(3001);
 });
 */
@@ -60,12 +69,15 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Logger middleware
-/*app.use((req, res, next) => {
-    console.log("New request");
-    //console.log("Hostname: " + req.hostname);
-    console.log("" + req.method + " " + req.url);
+app.use((req, res, next) => {
+    log("New request", 1);
+    log("Hostname: ".info + req.hostname, 1);
+    log("URL : ".info + req.method + " " + req.url, 1);
     next();
-});*/
+});
+
+
+
 
 app.use("/", routes);
 
