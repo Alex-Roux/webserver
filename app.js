@@ -1,10 +1,10 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const fs = require('fs');
-const routes = require('./routes/routes.js');
+const express = require("express");
+const mongoose = require("mongoose");
+const fs = require("fs");
+const routes = require("./routes/routes.js");
 
 /*// MongoDB
-const config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
+const config = JSON.parse(fs.readFileSync("./config.json", "utf8"))
 
 mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then((result) => {
@@ -18,8 +18,8 @@ const app = express();
 
 
 // register view engine
-app.set('view engine', 'ejs');
-app.set('views', 'htdocs');
+app.set("view engine", "ejs");
+app.set("views", "htdocs");
 
 
 // listen for requests
@@ -27,7 +27,7 @@ app.listen(3000);
 
 
 // middleware & static files
-app.use(express.static('public'));
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -39,10 +39,10 @@ app.use(express.urlencoded({ extended: true }));
     next();
 });*/
 
-app.use('/', routes);
+app.use("/", routes);
 
 // 404
 app.use((req, res) => {
-    res.render('404', { title: "404" });
+    res.render("404", { title: "404" });
 });
 
