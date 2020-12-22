@@ -5,9 +5,6 @@ const routes = require("./routes/routes.js");
 const readline = require("readline");
 const colors = require("colors");
 
-function log(string, formalized) {
-	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
-    if(!formalized) date = "";
 
 // rl interface creation for command input
 const rl = readline.createInterface({
@@ -40,7 +37,7 @@ log("", 0);
 
 log("Starting...".info, 1);
 
-/*// MongoDB
+/// MongoDB
 const config = JSON.parse(fs.readFileSync("./config.json", "utf8"))
 
 mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -48,7 +45,7 @@ mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true
     log("Connected to MongoDB.".info, 1);
     app.listen(3001);
 });
-*/
+
 
 // create the express app
 const app = express();
