@@ -16,6 +16,7 @@ const colors = require("colors");
 // Color theme
 colors.setTheme({
     info: "cyan",
+    success: "green",
     warn: "yellow",
     error: "red"
 });
@@ -23,7 +24,7 @@ colors.setTheme({
 // Log function
 function log(string, formalized) {
 	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
-    if(!formalized) { date = ""; }
+    if(!formalized) { date = ""; };
 	var logLine = date.grey + string;
 	console.log(logLine);
     const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m)/gmu); // angry-face
@@ -33,9 +34,10 @@ function log(string, formalized) {
 }
 
 
-log("", 0);
 //rl.prompt();
 
+
+log("", 0);
 log("Starting...".info, 1);
 
 /// MongoDB
@@ -73,9 +75,6 @@ app.use((req, res, next) => {
     log("URL : ".info + req.method + " " + req.url, 1);
     next();
 });
-
-
-
 
 app.use("/", routes);
 
