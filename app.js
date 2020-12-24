@@ -40,14 +40,8 @@ function log(string, formalized) {
 log("", 0);
 log("Starting...".info, 1);
 
-/// MongoDB
-const config = JSON.parse(fs.readFileSync("./config.json", "utf8"))
 
-mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then((result) => {
-    log("Connected to MongoDB.".info, 1);
-    app.listen(3001);
-});
+const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
 
 
 // create the express app
@@ -58,9 +52,15 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", "htdocs");
 
+/// MongoDB
+mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then((result) => {
+    log("Connected to MongoDB.".success, 1);
 
-// listen for requests
-app.listen(3000);
+    // listen for requests
+    app.listen(3000);
+    log("Listening.".info, 1);
+});
 
 
 // middleware & static files
