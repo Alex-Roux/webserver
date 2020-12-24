@@ -70,8 +70,7 @@ app.use(express.urlencoded({ extended: true }));
 // Logger middleware
 app.use((req, res, next) => {
     log("New request", 1);
-    log("Hostname: ".info + req.hostname, 1);
-    log("URL : ".info + req.method + " " + req.url, 1);
+    log("Hostname: ".info + req.hostname + "     URL : ".info + req.method + " " + req.url, 1);
     next();
 });
 
@@ -79,6 +78,8 @@ app.use("/", routes);
 
 // 404
 app.use((req, res) => {
+    log("█ Error code: 404 █".warn, 1);
+    res.statusCode = 404;
     res.render("404", { title: "404" });
 });
 
