@@ -51,7 +51,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", "htdocs");
 
-/// MongoDB
+// MongoDB
 mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then((result) => {
     log("Connected to MongoDB.".success, 1);
