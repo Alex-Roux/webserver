@@ -32,8 +32,11 @@ function log(string, formalized) {
 	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) { throw err; }});
 }
 
+/*rl.on("line", (input) => {
+    rl.prompt();
+});
+rl.prompt();*/
 
-//rl.prompt();
 
 
 log("", 0);
