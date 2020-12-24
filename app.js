@@ -33,8 +33,8 @@ function log(string, formalized) {
 }
 
 
-rl.prompt();
 log("", 0);
+//rl.prompt();
 
 log("Starting...".info, 1);
 
