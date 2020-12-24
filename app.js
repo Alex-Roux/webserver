@@ -24,7 +24,7 @@ colors.setTheme({
 // Log function
 function log(string, formalized) {
 	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
-    if(!formalized) { date = ""; };
+    if(!formalized) { date = ""; }
 	var logLine = date.grey + string;
 	console.log(logLine);
     const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m|\x1B\x5B32m|\x1B\x5B33m)/gmu); // angry-face
