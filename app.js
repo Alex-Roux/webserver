@@ -72,8 +72,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Logger middleware
 app.use((req, res, next) => {
-    log("New request", 1);
-    log("Hostname: ".info + req.hostname + "     URL : ".info + req.method + " " + req.url, 1);
+    log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1);
     next();
 });
 
