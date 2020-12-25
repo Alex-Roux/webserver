@@ -1,16 +1,10 @@
 const express = require("express");
 const router = new express.Router();
+const controller = require("../controllers/routeController");
 
 
-// Root page
-router.get("/", (req,res) => {
-    res.render("index", { title: "Home"});
-});
-
-router.get("/page2", (req,res) => {
-    res.render("page2", { title: "Page 2"});
-});
-
+router.get("/", controller.main_index);
+router.get("/page2", controller.main_page2);
 
 
 module.exports = router;
