@@ -56,7 +56,7 @@ app.set("views", "htdocs");
 
 // MongoDB
 mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then((result) => {
+.then(() => {
     log("Connected to MongoDB.".success, 1);
 
     // listen for requests

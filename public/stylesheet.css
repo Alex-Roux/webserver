@@ -44,7 +44,7 @@ header {
     font-size: large;
 }
 
-.header-nav .button:hover{
+.header-nav .button:hover {
     background-color: var(--primary);
     /*color: white;*/
     transition-duration: 250ms;
