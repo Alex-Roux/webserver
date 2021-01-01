@@ -16,13 +16,13 @@ body {
 
 /* Header */
 header {
-    background-color : var(--secondary);
+    background-color: var(--secondary);
     color: white;
 }
 
 .header-title {
     padding: 16px;
-    background-color : var(--secondary);
+    background-color: var(--secondary);
 }
 
 .header-nav {
@@ -40,10 +40,17 @@ header {
 
 /* Body */
 .document {
-    min-height: 100vh;
+    padding: 16px;
+
 }
 
 /* Footer */
 footer {
+    padding: 16px;
     background-color : var(--secondary);
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }
