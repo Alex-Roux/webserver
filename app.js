@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const routes = require("./routes/routes.js");
+const authRoutes = require("./routes/authRoutes.js");
 //const readline = require("readline");
 const colors = require("colors");
 
@@ -77,6 +78,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", routes);
+app.use("/", authRoutes);
 
 // 404
 app.use((req, res) => {
