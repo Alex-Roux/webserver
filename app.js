@@ -3,7 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes/routes.js");
 const authRoutes = require("./routes/authRoutes.js");
-const utils = require("./utils/utils.js")
+const utils = require("./utils/utils.js");
+
 
 /*utils.rl.on("line", (input) => {
     utils.rl.prompt();
