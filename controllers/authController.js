@@ -29,7 +29,7 @@ const accountPostSignup = async (req, res) => {
         res.status(201).json(user);
     } catch(err) {
         const errors = errorHandler(err);
-        res.status(400).send("error, user not created");
+        res.status(400).json(errors);
     }
 };
 
