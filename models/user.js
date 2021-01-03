@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
+const bcrypt = require("bcrypt");
 const utils = require("../utils/utils.js");
 
 // Creates the user schema
@@ -18,12 +19,14 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.pre("save", function() {
-    utils.log("Creating a user... Email: ".info + this.email, 1);
+userSchema.pre("save", async function() {
+    utils.log("Creating a user... " + "Email: ".info + this.email, 1);
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 userSchema.post("save", function(doc, next) {
-    utils.log("New user created.".info, 1);
+    utils.log("New user created. " +"ID: ".info + doc._id, 1);
     next();
 });
 
