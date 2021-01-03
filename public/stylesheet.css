@@ -58,6 +58,12 @@ header {
     transition-duration: 250ms;
 }
 
+.header-nav .signup {
+    background-color: aqua;
+}
+.header-nav .login {
+    background-color: greenyellow;
+}
 
 /* Body */
 .document {
