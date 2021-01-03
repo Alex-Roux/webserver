@@ -18,9 +18,13 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+userSchema.pre("save", function() {
+    utils.log("Creating a user... Email: ".info + this.email, 1);
+    next();
+});
+
 userSchema.post("save", function(doc, next) {
-    console.log("a");
-    utils.log("New user created: ".info + doc.email, 1);
+    utils.log("New user created.".info, 1);
 
     next();
 })
