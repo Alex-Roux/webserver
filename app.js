@@ -69,6 +69,7 @@ mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true
 // middleware & static files
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 // Logger middleware
