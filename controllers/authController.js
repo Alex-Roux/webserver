@@ -46,7 +46,8 @@ const accountPostLogin = async (req, res) => {
 
 const accountLogout = (req, res) => {
     //res.render("auth/page4", { title: "Page 2"});
-}; // ?
+};
+
 
 module.exports = {
     accountGetSignup,
