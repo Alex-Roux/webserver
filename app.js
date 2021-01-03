@@ -1,47 +1,17 @@
+const fs = require("fs");
 const express = require("express");
 const mongoose = require("mongoose");
-const fs = require("fs");
 const routes = require("./routes/routes.js");
 const authRoutes = require("./routes/authRoutes.js");
-//const readline = require("readline");
-const colors = require("colors");
+const utils = require("./utils/utils.js")
 
-
-// rl interface creation for command input
-/*const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});*/
-
-
-// Color theme
-colors.setTheme({
-    info: "cyan",
-    success: "green",
-    warn: "yellow",
-    error: "red"
+/*utils.rl.on("line", (input) => {
+    utils.rl.prompt();
 });
+utils.rl.prompt();*/
 
-// Log function
-function log(string, formalized) {
-	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
-    if(!formalized) { date = ""; }
-	var logLine = date.grey + string;
-	console.log(logLine);
-    const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m|\x1B\x5B32m|\x1B\x5B33m)/gmu); // angry-face
-    logLine = logLine.replace(regex, "");
-	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) { throw err; }});
-}
-
-/*rl.on("line", (input) => {
-    rl.prompt();
-});
-rl.prompt();*/
-
-
-
-log("", 0);
-log("Starting...".info, 1);
+utils.log("", 0);
+utils.log("Starting...".info, 1);
 
 
 const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
@@ -58,11 +28,11 @@ app.set("views", "htdocs");
 // MongoDB
 mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 .then(() => {
-    log("Connected to MongoDB.".success, 1);
+    utils.log("Connected to MongoDB.".success, 1);
 
     // listen for requests
     app.listen(3000);
-    log("Listening.".info, 1);
+    utils.log("Listening.".info, 1);
 });
 
 
@@ -74,7 +44,7 @@ app.use(express.json());
 
 // Logger middleware
 app.use((req, res, next) => {
-    log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1);
+    utils.log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1);
     next();
 });
 
@@ -84,7 +54,7 @@ app.use("/", authRoutes);
 
 // 404 page
 app.use((req, res) => {
-    log("█ Error code: 404 : ".warn + req.method + " " + req.url, 1);
+    utils.log("█ Error code: 404 : ".warn + req.method + " " + req.url, 1);
     res.statusCode = 404;
     res.render("404", { title: "404" });
 });

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
+const utils = require("../utils/utils.js");
 
 // Creates the user schema
 const userSchema = new mongoose.Schema({
@@ -19,12 +20,11 @@ const userSchema = new mongoose.Schema({
 
 userSchema.post("save", function(doc, next) {
     console.log("a");
+    utils.log("New user created: ".info + doc.email, 1);
+
     next();
 })
 
 const User = mongoose.model("user", userSchema);
-
-
-
 
 module.exports = User;
