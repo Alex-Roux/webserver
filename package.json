@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "mongoose": "^5.11.9",
+    "nodemon": "^2.0.6",
     "rl": "0.0.1"
   }
 }
