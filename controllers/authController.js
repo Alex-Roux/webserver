@@ -8,18 +8,18 @@ const errorHandler = (err) => {
 
     if(err.message.includes("user validation failed:")) {
         Object.values(err.errors).forEach(({properties}) => {
-            console.log(properties);
+            // console.log(properties);
         });
     }
 };
 
 
 
-const account_getSignup = (req, res) => {
+const accountGetSignup = (req, res) => {
     res.render("auth/signup", { title: "Sign up"});
 };
 
-const account_postSignup = async (req, res) => {
+const accountPostSignup = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.create({ email, password });
@@ -30,22 +30,22 @@ const account_postSignup = async (req, res) => {
     }
 };
 
-const account_getLogin = (req, res) => {
+const accountGetLogin = (req, res) => {
     res.render("auth/login", { title: "Log in"});
 };
 
-const account_postLogin = async (req, res) => {
+const accountPostLogin = async (req, res) => {
     
 };
 
-const account_logout = (req, res) => {
+const accountLogout = (req, res) => {
     //res.render("auth/page4", { title: "Page 2"});
 }; // ?
 
 module.exports = {
-    account_getSignup,
-    account_getLogin,
-    account_postSignup,
-    account_postLogin,
-    account_logout
-}
+    accountGetSignup,
+    accountPostSignup,
+    accountGetLogin,
+    accountPostLogin,
+    accountLogout
+};
