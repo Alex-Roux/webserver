@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const utils = require("../utils/utils.js")
 
 // Handles errors coming from MongoDB
 const errorHandler = (err) => {
