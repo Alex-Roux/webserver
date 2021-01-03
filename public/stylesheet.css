@@ -65,6 +65,11 @@ header {
     background-color: greenyellow;
 }
 
+.login-form,
+.signup-form {
+    margin: 16px;
+}
+
 /* Body */
 .document {
     padding: 16px 64px 16px 64px;
