@@ -82,7 +82,7 @@ app.use("/", authRoutes);
 
 // 404
 app.use((req, res) => {
-    log("█ Error code: 404 █".warn, 1);
+    log("█ Error code: 404 : ".warn + req.method + " " + req.url, 1);
     res.statusCode = 404;
     res.render("404", { title: "404" });
 });
