@@ -6,6 +6,15 @@
 <body>
     <%- include('../partials/header.ejs') %>
     <div class="document">
-        <h1>Sign up</h1>
+        <form>
+            <h1>Sign up</h1>
+            <label for="email">Email</label>
+            <input type="text" name="email" required />
+            <div class="email-error"></div>            
+            <label for="password">Password</label>
+            <input type="password" name="password" required />
+            <div class="password-error"></div> 
+            <button>Sign up</button>
+        </form>
     </div>
     <%- include('../partials/footer.ejs') %>
