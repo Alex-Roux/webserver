@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 
-
+// Creates the user schema
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
         minlength: [6, "Minimum password length is 6 characters."]
     }
 });
+
 userSchema.post("save", function(doc, next) {
     console.log("a");
     next();

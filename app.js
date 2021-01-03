@@ -78,10 +78,11 @@ app.use((req, res, next) => {
     next();
 });
 
+// Routing
 app.use("/", routes);
 app.use("/", authRoutes);
 
-// 404
+// 404 page
 app.use((req, res) => {
     log("█ Error code: 404 : ".warn + req.method + " " + req.url, 1);
     res.statusCode = 404;
