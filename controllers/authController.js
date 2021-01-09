@@ -40,12 +40,12 @@ const accountGetLogin = (req, res) => {
 
 // Logs the user in
 const accountPostLogin = async (req, res) => {
-    
+    res.render("index", { title: "Home"});
 };
 
 // Logs the user out
 const accountLogout = (req, res) => {
-    //res.render("auth/page4", { title: "Page 2"});
+    res.render("index", { title: "Home"});;
 };
 
 
