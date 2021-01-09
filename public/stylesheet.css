@@ -43,7 +43,7 @@ header {
     padding: 4px 8px 4px 8px;
     margin: 8px;
     background-color: rgb(255, 255, 255);
-    border-radius: 12px;
+    border-radius: 4px;
     color: black;
     text-decoration: none;
     text-transform: uppercase;
@@ -87,15 +87,25 @@ footer a {
 
 
 
+.signup-form {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 32px;
+}
 
-
+form {
+	display: inline-block;
+	padding-bottom: 10px;
+}
 
 form fieldset {
 	border: none;
 }
 
 form .input-field {
-	margin-bottom: 8px;
+	margin-top: 16px;
+	display: flex;
 }
 
 form label {
@@ -103,20 +113,24 @@ form label {
 }
 
 form button, form input {
-	border: 1px solid;
-	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, 0.4);
+	border-radius: 3px;
 	padding: 2px 4px 2px 4px;
+	
 }
-
+form input {
+	width: 100%;
+}
 form button {
-	margin-left: 32px;
-}
-
-form button:hover {
-	color: var(--primary);
-	transition-duration: 250ms;
+	margin-left: 16px;
+	background-color: rgba(0, 0, 0, 0.05);
 }
 
 
+
+form button:hover, form input:focus {
+	background-color: rgba(0, 0, 0, 0.1);
+	transition-duration: 500ms;
+}
 
 
