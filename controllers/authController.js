@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const utils = require("../utils/utils.js");
+const jwt = require("json-web-token");
 
 // Get the signup page
 const accountGetSignup = (req, res) => {
