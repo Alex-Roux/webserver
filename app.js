@@ -1,10 +1,10 @@
 const fs = require("fs");
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const routes = require("./routes/routes.js");
 const authRoutes = require("./routes/authRoutes.js");
 const utils = require("./utils/utils.js");
-const cookieParser = require("cookie-parser");
 
 
 // CLI command handler
@@ -34,12 +34,12 @@ mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true
     utils.log("Listening.".info, 1);
 });
 
-app.use(cookieParser());
 // Middlewares
 app.use(utils.requestLogger);                       // Logger middleware
 app.use(express.static("public"));                  // Give access to the public resources (images, stylesheets)
 app.use(express.urlencoded({ extended: true }));    // urlencoded payloads
 app.use(express.json());                            // Use express.json to handle requests
+app.use(cookieParser());                            // Use cookie-parser to handle cookies
 
 // Routing
 app.use("/", routes);
