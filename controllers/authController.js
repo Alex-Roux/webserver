@@ -1,20 +1,5 @@
 const User = require("../models/user");
-// const utils = require("../utils/utils.js");
-
-// Handles errors coming from MongoDB
-const errorHandler = (err) => {
-    let errors = { email: "", password: "" };
-    if(err.code === 11000) {
-        errors.email = "That email address is already registered.";
-        return errors;
-    }
-    if(err.message.includes("user validation failed:")) {
-        Object.values(err.errors).forEach(({properties}) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-    return errors;
-};
+const utils = require("../utils/utils.js");
 
 // Get the signup page
 const accountGetSignup = (req, res) => {
