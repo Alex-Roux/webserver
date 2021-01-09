@@ -1,3 +1,4 @@
 {
-    "dbURI": "mongodb+srv://......"
+    "dbURI": "mongodb+srv://......",
+    "jwtSecret": "databaseSecret"
 }
