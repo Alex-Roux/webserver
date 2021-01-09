@@ -1,4 +1,3 @@
-const fs = require("fs");
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -15,9 +14,7 @@ utils.rl.prompt();*/
 
 utils.log("Starting...".info, 1);
 
-// Parse config.json
-// Used to get the database URI
-const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+
 
 // Create the Express app
 const app = express();
@@ -27,7 +24,7 @@ app.set("view engine", "ejs");
 app.set("views", "htdocs");
 
 // MongoDB
-mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }) // Connect to the database
+mongoose.connect(utils.config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }) // Connect to the database
 .then(() => {
     utils.log("Connected to MongoDB.".success, 1);
     app.listen(3000); // Listen for requests

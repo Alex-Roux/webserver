@@ -9,6 +9,9 @@ const colors = require("colors");
     output: process.stdout
 });*/
 
+// Parse config.json
+// Used to get the database URI
+const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
 
 // Set color theme
 colors.setTheme({
