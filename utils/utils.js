@@ -34,7 +34,7 @@ function log(string, includeDate) {
     const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m|\x1B\x5B32m|\x1B\x5B33m)/gmu); // Define colors characters
     string = string.replace(regex, "");                                                                       // Remove colors characters from the string
 	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                   // Append the string to latest.log
-};
+}
 
 // RequestLogger
 // Logs informations about the request
@@ -44,14 +44,14 @@ const requestLogger = function(req, res, next) {
 };
 
 const databaseErrorHandler = function(err) {
-    let errors = { email: "", password: "" };
+    let errors = {errors: { email: "", password: "" }};
     if(err.code === 11000) {
-        errors.email = "That email address is already registered.";
+        errors.errors.email = "That email address is already registered.";
         return errors;
     }
     if(err.message.includes("user validation failed:")) {
         Object.values(err.errors).forEach(({properties}) => {
-            errors[properties.path] = properties.message;
+            errors.errors[properties.path] = properties.message;
         });
     }
     return errors;
