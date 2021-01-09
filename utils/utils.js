@@ -32,7 +32,6 @@ function log(string, includeDate) {
 	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                   // Append the string to latest.log
 };
 
-//
 // RequestLogger
 // Logs informations about the request
 const requestLogger = function(req, res, next) {
