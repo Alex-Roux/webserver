@@ -60,7 +60,7 @@ const databaseErrorHandler = function(err) {
 const maxAge = 3 * 86400;
 const createToken = function(id) {
     return jwt.sign({ id }, config.jwtSecret, { expiresIn: maxAge });
-}
+};
 
 module.exports = {
     config,
