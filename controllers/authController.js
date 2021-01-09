@@ -45,7 +45,7 @@ const accountPostLogin = async (req, res) => {
 
 // Logs the user out
 const accountLogout = (req, res) => {
-    res.render("index", { title: "Home"});;
+    res.render("index", { title: "Home"});
 };
 
 

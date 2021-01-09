@@ -33,7 +33,7 @@ function log(string, formalized) {
 const logRequest = function(req, res, next) {
     log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1);
     next();
-}
+};
 
 module.exports = {
     //rl,
