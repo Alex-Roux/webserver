@@ -29,9 +29,15 @@ function log(string, formalized) {
 	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) { throw err; }});
 }
 
+//
+const logRequest = function(req, res, next) {
+    log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1);
+    next();
+}
 
 module.exports = {
     //rl,
     colors,
-    log
+    log,
+    logRequest
 };

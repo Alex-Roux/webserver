@@ -44,10 +44,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Logger middleware
-app.use((req, res, next) => {
-    utils.log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1);
-    next();
-});
+app.use(utils.logRequest);                          // Logger middleware
 
 // Routing
 app.use("/", routes);
