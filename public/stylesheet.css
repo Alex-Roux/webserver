@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');                     /* Fira Sans */
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@500&display=swap');      /* Baloo Chettan 2 */
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');                         /* Rubik */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');                /* Fira Sans */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@500&display=swap'); /* Baloo Chettan 2 */
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');                    /* Rubik */
 
 /* ---Variables--- */
 :root {
@@ -85,52 +85,49 @@ footer a {
     text-decoration: none;
 }
 
-
-
 .signup-form {
-	width: 50%;
-	margin: 0 auto;
-	text-align: center;
-	margin-bottom: 32px;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 32px;
 }
 
 form {
-	display: inline-block;
-	padding-bottom: 10px;
+    display: inline-block;
+    padding-bottom: 10px;
 }
 
 form fieldset {
-	border: none;
+    border: none;
 }
 
 form .input-field {
-	margin-top: 16px;
-	display: flex;
+    margin-top: 16px;
+    display: flex;
 }
 
 form label {
-	margin-right: 8px;
+    margin-right: 8px;
 }
 
-form button, form input {
-	border: 1px solid rgba(0, 0, 0, 0.4);
-	border-radius: 3px;
-	padding: 2px 4px 2px 4px;
-	
+form button,
+form input {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    padding: 2px 4px 2px 4px;
 }
 
 form input {
-	width: 100%;
+    width: 100%;
 }
 
 form button {
     margin-left: 16px;
-	background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-form button:hover, form input:focus {
-	background-color: rgba(0, 0, 0, 0.1);
-	transition-duration: 500ms;
+form button:hover,
+form input:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+    transition-duration: 500ms;
 }
-
-
