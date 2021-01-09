@@ -13,7 +13,7 @@ const accountPostSignup = async (req, res) => {
         const user = await User.create({ email, password });
         res.status(201).json(user);
     } catch(err) {
-        const errors = errorHandler(err);
+        const errors = utils.databaseErrorHandler(err);
         res.status(400).json(errors);
     }
 };
