@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes/routes.js");
 const authRoutes = require("./routes/authRoutes.js");
 const utils = require("./utils/utils.js");
-
+const cookieParser = require("cookie-parser");
 
 /*utils.rl.on("line", (input) => {
     utils.rl.prompt();
@@ -41,7 +41,7 @@ mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cookieParser());
 
 // Logger middleware
 app.use((req, res, next) => {
