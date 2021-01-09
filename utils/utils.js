@@ -10,28 +10,33 @@ const colors = require("colors");
 });*/
 
 
-// Color theme
+// Set color theme
 colors.setTheme({
     info: "cyan",
     success: "green",
     warn: "yellow",
     error: "red"
 });
-
-// log function
-function log(string, formalized) {
-	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
-    if(!formalized) { date = ""; }
-	var logLine = date.grey + string;
-	console.log(logLine);
-    const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m|\x1B\x5B32m|\x1B\x5B33m)/gmu); // angry-face
-    logLine = logLine.replace(regex, "");
-	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) { throw err; }});
-}
+// Log function
+// This function is used instead of console.log();
+// as it also logs the string to latest.log
+function log(string, includeDate) {
+    var date;                                                                                                 // Define date
+    if(includeDate) {
+        date = colors.grey("[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ");  // Include the date 
+    }                                                                                                         // -> [2021-01-01 12:01:23 GMT] String
+	string = date + string;                                                                              // Add the date and the string together
+	console.log(string);                                                                                     // Log the string to the console
+    const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m|\x1B\x5B32m|\x1B\x5B33m)/gmu); // Define colors characters
+    string = string.replace(regex, "");                                                                     // Remove colors characters from the string
+	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                  // Append the string to latest.log
+};
 
 //
-const logRequest = function(req, res, next) {
-    log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1);
+// RequestLogger
+// Logs informations about the request
+const requestLogger = function(req, res, next) {
+    log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1); // Call log function with info
     next();
 };
 
@@ -53,5 +58,6 @@ module.exports = {
     //rl,
     colors,
     log,
-    logRequest
+    requestLogger,
+    databaseErrorHandler
 };
