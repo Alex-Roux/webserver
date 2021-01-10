@@ -45,7 +45,7 @@ const requestLogger = function(req, res, next) {
 };
 
 const databaseErrorHandler = function(err) {
-    let errors = {errors: { email: "", password: "" }};
+    let errors = { errors: { email: "", password: "" }};
     if(err.code === 11000) {
         errors.errors.email = "That email address is already registered.";
         return errors;

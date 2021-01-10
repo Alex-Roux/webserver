@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function() {
     utils.log("Creating a user... " + "Email: ".info + this.email, 1);
-    const salt = await bcrypt.genSalt();
+    let salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
 });
 
