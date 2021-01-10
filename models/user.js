@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function() {
     utils.log("Creating a user... " + "Email: ".info + this.email, 1);
-    const salt = await bcrypt.genSalt();
+    let salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
 });
 
@@ -29,6 +29,18 @@ userSchema.post("save", function(doc, next) {
     utils.log("New user created. " +"ID: ".info + doc._id, 1);
     next();
 });
+
+userSchema.statics.login = async function(email, password) {
+    let user = await this.findOne({ email });
+    if(user) {
+        let auth = bcrypt.compare(password, user.password);
+        if(auth) {
+            return user;
+        }
+        throw Error("auth err");
+    }
+    throw Error("auth err");
+};
 
 const User = mongoose.model("user", userSchema);
 

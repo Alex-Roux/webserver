@@ -1,5 +1,6 @@
 
-const logout = async function() {
+
+const logout = async function(req, res) {
 
     // Logs out the user
 
