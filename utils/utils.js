@@ -21,6 +21,7 @@ colors.setTheme({
     warn: "yellow",
     error: "red"
 });
+
 // Log function
 // This function is used instead of console.log();
 // as it also logs the string to latest.log
