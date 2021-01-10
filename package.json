@@ -1,0 +1,30 @@
+{
+  "name": "webserver",
+  "version": "1.0.0",
+  "description": "A Node.js web server.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alex-Roux/webserver.git"
+  },
+  "author": "Alex-Roux",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Alex-Roux/webserver/issues"
+  },
+  "homepage": "https://github.com/Alex-Roux/webserver#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.9",
+    "nodemon": "^2.0.6",
+    "rl": "0.0.1"
+  }
+}

@@ -1,0 +1,21 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/header.ejs') %>
+    <div class="signup-form">
+        <form>
+            <h1>Log in</h1>
+			<fieldset>
+				<div class="input-field">
+					<label for="email">Email</label>
+					<input type="text" name="email" autocomplete="email" required />
+					<div class="email-error"></div>
+				</div>
+				<div class="input-field">
+					<label for="password">Password</label>
+					<input type="password" name="password" autocomplete="new-password" required />
+					<div class="password-error"></div>
+				</div>
+			</fieldset>
+            <button>Log in</button>
+        </form>
+    </div>
+<%- include('../partials/footer.ejs') %>
