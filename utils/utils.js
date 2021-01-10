@@ -40,7 +40,13 @@ function log(string, includeDate) {
 // RequestLogger
 // Logs informations about the request
 const requestLogger = function(req, res, next) {
-    log("New request : " + "Hostname: ".info + req.hostname + " ║ " +"URL: ".info + req.method + req.url, 1); // Call log function with info
+    let reqUrl = req.url, logString;
+    if(!reqUrl.includes(".")) {
+        logString = "New request : " + "Hostname: ".info + req.hostname + " ║ " + "URL: ".info + req.method + req.url;
+    } else {
+        logString = "New request : ".grey + "Hostname: ".grey + req.hostname.grey + " ║ ".grey + "URL: ".grey + req.method.grey + req.url.grey;
+    }
+    log(logString, 1); // Call log function with info
     next();
 };
 
