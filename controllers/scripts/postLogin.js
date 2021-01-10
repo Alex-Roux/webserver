@@ -1,9 +1,5 @@
-<<<<<<< Updated upstream
-const utils = require("../../utils/utils.js");
-=======
 const utils = require("../../utils/utils")
 const User = require("../../models/user");
->>>>>>> Stashed changes
 
 const postLogin = async function(req, res) {
     let { email, password } = req.body;
