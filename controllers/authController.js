@@ -1,5 +1,7 @@
-const User = require("../models/user");
-const utils = require("../utils/utils.js");
+const utils = require("../utils/utils");
+const postSignup = require("./scripts/postSignup");
+const postLogin = require("./scripts/postLogin");
+const logout = require("./scripts/logout");
 
 // Get the signup page
 const accountGetSignup = (req, res) => {
@@ -7,17 +9,8 @@ const accountGetSignup = (req, res) => {
 };
 
 // Create an account
-const accountPostSignup = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const user = await User.create({ email, password });
-        const token = utils.createToken(user._id);
-        res.cookie("jwt", token, { httpOnly: true, maxAge: utils.maxAge * 1000 });
-        res.status(201).json({ user: user._id });
-    } catch(err) {
-        const errors = utils.databaseErrorHandler(err);
-        res.status(400).json(errors);
-    }
+const accountPostSignup = (req, res) => {
+    postSignup(req, res);
 };
 
 // Get the login page
@@ -26,13 +19,13 @@ const accountGetLogin = (req, res) => {
 };
 
 // Logs the user in
-const accountPostLogin = async (req, res) => {
-    res.render("index", { title: "Home"});
+const accountPostLogin = (req, res) => {
+    postLogin(req, res);
 };
 
 // Logs the user out
 const accountLogout = (req, res) => {
-    res.render("index", { title: "Home"});
+    logout(req, res);
 };
 
 
