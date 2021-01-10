@@ -2,7 +2,8 @@ const utils = require("../../utils/utils");
 const User = require("../../models/user");
 
 const postSignup = async function(req, res) {
-    const { email, password } = req.body;
+    let email = req.body.email, password = req.body.password;
+    
     try {
         const user = await User.create({ email, password });
         const token = utils.createToken(user._id);

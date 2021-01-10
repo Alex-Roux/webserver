@@ -2,7 +2,7 @@ const utils = require("../../utils/utils")
 const User = require("../../models/user");
 
 const postLogin = async function(req, res) {
-    let { email, password } = req.body;
+    let email = req.body.email, password = req.body.password;
 
     try {
         let user = await User.login(email, password);
@@ -12,7 +12,9 @@ const postLogin = async function(req, res) {
         utils.log("Logged in ".info + email, 1);
     }
     catch(err) {
-        res.status(400).json({});
+        utils.log("Failed signup".info, 1);
+        let errors = utils.databaseErrorHandler(err);
+        res.status(400).json({ errors});
     }
 };
 
