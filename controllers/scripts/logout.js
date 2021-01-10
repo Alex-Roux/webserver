@@ -1,4 +1,3 @@
-const utils = require("../../utils/utils.js");
 
 const logout = async function() {
 
