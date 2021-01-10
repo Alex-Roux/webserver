@@ -1,4 +1,3 @@
-const utils = require("../utils/utils");
 const postSignup = require("./scripts/postSignup");
 const postLogin = require("./scripts/postLogin");
 const logout = require("./scripts/logout");

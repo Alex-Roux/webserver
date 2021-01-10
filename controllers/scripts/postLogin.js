@@ -14,6 +14,6 @@ const postLogin = async function(req, res) {
     catch(err) {
         res.status(400).json({});
     }
-}
+};
 
 module.exports = postLogin;
