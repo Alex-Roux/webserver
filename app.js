@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const utils = require("./utils/utils");
 const firewall = require("./middleware/firewall");
 const requestLogger = require("./middleware/requestLogger");
+const authentication = require("./middleware/authentication");
 
 utils.log("Starting...".info, 1);
 
