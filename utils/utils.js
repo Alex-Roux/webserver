@@ -93,6 +93,15 @@ const createToken = function(id) {
     return jwt.sign({ id }, config.jwtSecret, { expiresIn: maxAge });
 };
 
+const firewall = function(req, res, next) {
+    if(config.blockedIP.includes(req.hostname)) {
+        log("Blocked by firewall".warn, 1);
+        res.status(403).send("403 Forbidden");
+    } else{
+        next();
+    }
+};
+
 module.exports = {
     config,
     colors,
@@ -100,5 +109,6 @@ module.exports = {
     requestLogger,
     databaseErrorHandler,
     maxAge,
-    createToken
+    createToken,
+    firewall
 };

@@ -24,6 +24,7 @@ mongoose.connect(utils.config.dbURI, { useNewUrlParser: true, useUnifiedTopology
 
 // Middlewares
 app.use(utils.requestLogger);                       // Logger middleware
+app.use(utils.firewall);
 app.use(express.static("public"));                  // Give access to the public resources (images, stylesheets)
 app.use(express.urlencoded({ extended: true }));    // urlencoded payloads
 app.use(express.json());                            // Use express.json to handle requests
