@@ -12,9 +12,9 @@ const postLogin = async function(req, res) {
         utils.log("Logged in ".info + email, 1);
     }
     catch(err) {
-        utils.log("Failed signup".info, 1);
-        let errors = utils.databaseErrorHandler(err);
-        res.status(400).json({ errors});
+        utils.log("Failed signup: ".info + req.body.email, 1);
+        let errors = utils.databaseErrorHandler(err).errors;
+        res.status(400).json({ errors });
     }
 };
 

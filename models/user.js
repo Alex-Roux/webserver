@@ -33,7 +33,7 @@ userSchema.post("save", function(doc, next) {
 userSchema.statics.login = async function(email, password) {
     let user = await this.findOne({ email });
     if(user) {
-        let auth = bcrypt.compare(password, user.password);
+        let auth = await bcrypt.compare(password, user.password);
         if(auth) {
             return user;
         }

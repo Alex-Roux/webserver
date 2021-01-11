@@ -104,6 +104,13 @@ form fieldset {
 form .input-field {
     margin-top: 16px;
     display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.email-error,
+.password-error {
+    font-size: 0.9em;
+    color: red;
 }
 
 form label {

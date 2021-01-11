@@ -3,28 +3,35 @@ const colors = require("colors");
 const jwt = require("jsonwebtoken");
 const rl = require("readline").createInterface({ input: process.stdin, output: process.stdout });
 
+var server;
+const maxAge = 3 * 86400;
+
 // CLI command handler
 rl.setPrompt("");
 rl.on("line", (input) => {
     if(input == "quit" || input == "exit") {
         log("Exiting...".warn, 1);
-        server.close(() => {
+        console.log(server)
+        /*server.close(() => {
             process.exit(0);
-        });
+        });*/
     } else if(input == "kill") {
         process.exit(1);
     } else if(input == "refreshconfig") {
         refreshConfig();
+    } else if(input == "help") {
+        log("List of commands:".info, 1);
+        log("- quit/exit", 1);
+        log("- kill", 1);
+        log("- refreshconfig", 1);
+        // log("- ", 1);
+        // log("- ", 1);
     } else {
         log(input.warn + ": Undefined command.".warn, 1);
     }
     rl.prompt();
 });
-
 rl.prompt();
-
-//let reqTime;
-const maxAge = 3 * 86400;
 
 // Parse config.json
 var config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
@@ -80,7 +87,7 @@ const requestLogger = function(req, res, next) {
 
 const databaseErrorHandler = function(err) {
     let errors = { errors: { email: "", password: "" }};
-    if(err.code === "auth err") {
+    if(err.message === "auth err") {
         errors.errors.password = "Incorrect email address or password.";
         return errors;
     }
@@ -117,5 +124,6 @@ module.exports = {
     databaseErrorHandler,
     maxAge,
     createToken,
-    firewall
+    firewall,
+    server
 };
