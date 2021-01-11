@@ -1,6 +1,11 @@
 <header>
 	<div class="header-title">
 		Website
+		<% if(user) { %>
+		<div class="user">
+			<a href="/logout">Welcome, <%= user.email %></a>
+		</div>
+		<% } %>
 	</div>
 	<div class="header-nav">
 		<nav>
@@ -8,8 +13,10 @@
 			<a class="button" href="/page2">Page 2</a>
 			<a class="button" href="/page3">Page 3</a>
 			<a class="button" href="/page4">Page 4</a>
+			<% if(!user) { %>
 			<a class="button signup" href="/signup">Sign up</a>
 			<a class="button login" href="/login">Log in</a>
+			<% } %>
 		</nav>
 	</div>
 

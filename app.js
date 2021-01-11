@@ -6,7 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const utils = require("./utils/utils");
 const firewall = require("./middleware/firewall");
 const requestLogger = require("./middleware/requestLogger");
-const authentication = require("./middleware/authentication");
+const { checkUser } = require("./middleware/authentication");
 
 utils.log("Starting...".info, 1);
 
@@ -23,7 +23,8 @@ mongoose.connect(utils.config.dbURI, { useNewUrlParser: true, useUnifiedTopology
     utils.log("Connected to MongoDB.".success, 1);
     utils.server = app.listen(3000); // Create the server object and listen for requests
     utils.log("Listening.".info, 1);
-    
+}).catch((err) => {
+    utils.log(err, 1);
 });
 
 // Middlewares
@@ -33,6 +34,7 @@ app.use(express.static("public"));                  // Give access to the public
 app.use(express.urlencoded({ extended: true }));    // urlencoded payloads
 app.use(express.json());                            // Use express.json to handle requests
 app.use(cookieParser());                            // Use cookie-parser to handle cookies
+app.get("*", checkUser);                            // Get user info
 
 // Routing
 app.use("/", routes);

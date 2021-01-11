@@ -1,7 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const controller = require("../controllers/routeController");
-const requireAuth = require("../middleware/authentication");
+const { requireAuth } = require("../middleware/authentication");
 
 // Pages list
 router.get("/",      controller.mainIndex);

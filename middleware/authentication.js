@@ -1,5 +1,6 @@
 const utils = require("../utils/utils");
 const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
@@ -7,10 +8,9 @@ const requireAuth = (req, res, next) => {
     if(token) {
         jwt.verify(token, utils.config.jwtSecret, (err, decodedToken) => {
             if(err) {
-                utils.log("Invalid token.".warn, 1);
+                utils.log("Invalid token. ".warn, 1);
                 res.status(403).redirect("/login");
             } else {
-                console.log(decodedToken);
                 next();
             }
         });
@@ -20,4 +20,28 @@ const requireAuth = (req, res, next) => {
     }
 };
 
-module.exports = requireAuth;
+const checkUser = async (req, res, next) => {
+    const token = req.cookies.jwt;
+    
+    if(token) {
+        jwt.verify(token, utils.config.jwtSecret, async (err, decodedToken) => {
+            if(err) {
+                utils.log("Invalid token. ".warn, 1);
+                res.locals.user = null;
+                next();
+            } else {
+                let user = await User.findById(decodedToken.id);
+                res.locals.user = user;
+                next();
+            }
+        });
+    } else {
+        res.locals.user = null;
+        next();
+    }
+};
+
+module.exports = {
+    requireAuth,
+    checkUser
+};
