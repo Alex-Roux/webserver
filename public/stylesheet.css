@@ -33,6 +33,21 @@ header {
     background-color: var(--secondary);
 }
 
+.user {
+    text-align: right;
+}
+
+.user a {
+    color: white;
+    text-decoration: none;
+}
+
+.user a:hover {
+    color: red;
+    transition-duration: 500ms;
+}
+
+
 .header-nav {
     padding: 16px;
     padding-bottom: 24px;
