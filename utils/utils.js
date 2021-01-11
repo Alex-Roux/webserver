@@ -24,7 +24,7 @@ function log(string, includeDate) {
 	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                   // Append the string to latest.log
 }
 
-const refreshConfig = function() {
+const refreshConfig = function() {                                  // COMBAK
     config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
     log("Refreshed config.".success, 1);
 };

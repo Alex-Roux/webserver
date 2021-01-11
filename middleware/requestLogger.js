@@ -6,12 +6,16 @@ const colors = require("colors");
 const requestLogger = function(req, res, next) {
     let reqTime = new Date().getTime();
     let reqUrl = req.url, logString;
+    let isResource = false;
     if(!reqUrl.includes(".")) {
         logString = "New request : " + "Hostname: ".info + req.hostname + " ║ " + "URL: ".info + req.method + req.url;
-    } else if(utils.config.logResources) {
+    } else {
+        isResource = true;
         logString = "New request : ".grey + "Hostname: ".grey + req.hostname.grey + " ║ ".grey + "URL: ".grey + req.method.grey + req.url.grey;
     }
-    utils.log(logString, 1); // Call log function with info
+    if(utils.config.logResources || !isResource) {
+        utils.log(logString, 1); // Call log function with info
+    }
     next();
 
     res.on("finish", function() {
