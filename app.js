@@ -5,16 +5,7 @@ const routes = require("./routes/routes.js");
 const authRoutes = require("./routes/authRoutes.js");
 const utils = require("./utils/utils.js");
 
-
-// CLI command handler
-/*utils.rl.on("line", (input) => {
-    utils.rl.prompt();
-});
-utils.rl.prompt();*/
-
 utils.log("Starting...".info, 1);
-
-
 
 // Create the Express app
 const app = express();

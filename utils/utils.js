@@ -1,18 +1,38 @@
 const fs = require("fs");
 const colors = require("colors");
 const jwt = require("jsonwebtoken");
-// const readline = require("readline");
+const rl = require("readline").createInterface({ input: process.stdin, output: process.stdout });
 
-// rl interface creation for command input
+// CLI command handler
+rl.setPrompt("");
+rl.on("line", (input) => {
+    if(input == "quit" || input == "exit") {
+        log("Exiting...".warn, 1);
+        server.close(() => {
+            process.exit(0);
+        });
+    } else if(input == "kill") {
+        process.exit(1);
+    } else if(input == "refreshconfig") {
+        refreshConfig();
+    } else {
+        log(input.warn + ": Undefined command.".warn, 1);
+    }
+    rl.prompt();
+});
 
-/*const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});*/
+rl.prompt();
+
+//let reqTime;
+const maxAge = 3 * 86400;
 
 // Parse config.json
-// Used to get the database URI
-const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+var config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+
+const refreshConfig = function() {
+    config = JSON.parse(fs.readFileSync("./config.json", "utf8"))
+    log("Refreshed config.".success, 1);
+}
 
 // Set color theme
 colors.setTheme({
@@ -75,7 +95,6 @@ const createToken = function(id) {
 
 module.exports = {
     config,
-    //rl,
     colors,
     log,
     requestLogger,
