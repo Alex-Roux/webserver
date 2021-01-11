@@ -60,6 +60,7 @@ function log(string, includeDate) {
 // RequestLogger
 // Logs informations about the request
 const requestLogger = function(req, res, next) {
+    let reqTime = new Date().getTime();
     let reqUrl = req.url, logString;
     if(!reqUrl.includes(".")) {
         logString = "New request : " + "Hostname: ".info + req.hostname + " ║ " + "URL: ".info + req.method + req.url;
@@ -68,6 +69,13 @@ const requestLogger = function(req, res, next) {
     }
     log(logString, 1); // Call log function with info
     next();
+
+    res.on("finish", function() {
+        reqTime = new Date().getTime() - reqTime;
+        if(reqTime >= 100) {
+            log("Processed in ".grey + colors.green(reqTime) + " ms".grey, 1);
+        }
+    });
 };
 
 const databaseErrorHandler = function(err) {
@@ -88,7 +96,6 @@ const databaseErrorHandler = function(err) {
     return errors;
 };
 
-const maxAge = 3 * 86400;
 const createToken = function(id) {
     return jwt.sign({ id }, config.jwtSecret, { expiresIn: maxAge });
 };
