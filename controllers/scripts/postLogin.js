@@ -1,4 +1,4 @@
-const utils = require("../../utils/utils")
+const utils = require("../../utils/utils");
 const User = require("../../models/user");
 
 const postLogin = async function(req, res) {
