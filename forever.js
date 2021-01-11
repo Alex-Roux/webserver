@@ -1,13 +1,3 @@
-var forever = require('forever-monitor');
+const forever = require("forever");
 
-var child = new (forever.Monitor)('app.js', {
-    max: 3,
-    silent: true,
-    args: []
-});
-
-child.on('exit', function () {
-    console.log('Error');
-});
-
-child.start();
+forever.startServer("app.js");
