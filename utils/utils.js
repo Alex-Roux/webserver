@@ -64,27 +64,6 @@ function log(string, includeDate) {
 	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                   // Append the string to latest.log
 }
 
-// RequestLogger
-// Logs informations about the request
-const requestLogger = function(req, res, next) {
-    let reqTime = new Date().getTime();
-    let reqUrl = req.url, logString;
-    if(!reqUrl.includes(".")) {
-        logString = "New request : " + "Hostname: ".info + req.hostname + " ║ " + "URL: ".info + req.method + req.url;
-    } else {
-        logString = "New request : ".grey + "Hostname: ".grey + req.hostname.grey + " ║ ".grey + "URL: ".grey + req.method.grey + req.url.grey;
-    }
-    log(logString, 1); // Call log function with info
-    next();
-
-    res.on("finish", function() {
-        reqTime = new Date().getTime() - reqTime;
-        if(reqTime >= 100) {
-            log("Processed in ".grey + colors.green(reqTime) + " ms".grey, 1);
-        }
-    });
-};
-
 const databaseErrorHandler = function(err) {
     let errors = { errors: { email: "", password: "" }};
     if(err.message === "auth err") {
@@ -107,23 +86,12 @@ const createToken = function(id) {
     return jwt.sign({ id }, config.jwtSecret, { expiresIn: maxAge });
 };
 
-const firewall = function(req, res, next) {
-    if(config.blockedIP.includes(req.hostname)) {
-        log("Blocked by firewall".warn, 1);
-        res.status(403).send("403 Forbidden");
-    } else{
-        next();
-    }
-};
-
 module.exports = {
     config,
     colors,
-    log,
-    requestLogger,
-    databaseErrorHandler,
+    server,
     maxAge,
-    createToken,
-    firewall,
-    server
+    log,
+    databaseErrorHandler,
+    createToken
 };

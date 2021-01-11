@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const routes = require("./routes/routes.js");
-const authRoutes = require("./routes/authRoutes.js");
-const utils = require("./utils/utils.js");
+const routes = require("./routes/routes");
+const authRoutes = require("./routes/authRoutes");
+const utils = require("./utils/utils");
+const firewall = require("./middleware/firewall");
+const requestLogger = require("./middleware/requestLogger");
 
 utils.log("Starting...".info, 1);
 
@@ -24,8 +26,8 @@ mongoose.connect(utils.config.dbURI, { useNewUrlParser: true, useUnifiedTopology
 });
 
 // Middlewares
-app.use(utils.requestLogger);                       // Logger middleware
-app.use(utils.firewall);
+app.use(requestLogger);                             // Logger middleware
+app.use(firewall);                                  // Firewall
 app.use(express.static("public"));                  // Give access to the public resources (images, stylesheets)
 app.use(express.urlencoded({ extended: true }));    // urlencoded payloads
 app.use(express.json());                            // Use express.json to handle requests
