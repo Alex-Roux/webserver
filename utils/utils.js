@@ -4,14 +4,13 @@ const jwt = require("jsonwebtoken");
 const rl = require("readline").createInterface({ input: process.stdin, output: process.stdout });
 
 var server;
-const maxAge = 3 * 86400;
+const maxAge = 3 * 86400; // jwt cookie maxAge
 
 // CLI command handler
 rl.setPrompt("");
 rl.on("line", (input) => {
     if(input == "quit" || input == "exit") {
         log("Exiting...".warn, 1);
-        console.log(server)
         /*server.close(() => {
             process.exit(0);
         });*/
