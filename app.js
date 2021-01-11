@@ -18,7 +18,7 @@ app.set("views", "htdocs");
 mongoose.connect(utils.config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }) // Connect to the database
 .then(() => {
     utils.log("Connected to MongoDB.".success, 1);
-    app.listen(3000); // Listen for requests
+    app.listen(3000); // Create the server object and listen for requests
     utils.log("Listening.".info, 1);
 });
 
