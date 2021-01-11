@@ -6,32 +6,6 @@ const rl = require("readline").createInterface({ input: process.stdin, output: p
 var server;
 const maxAge = 3 * 86400; // jwt cookie maxAge
 
-// CLI command handler
-rl.setPrompt("");
-rl.on("line", (input) => {
-    if(input == "quit" || input == "exit") {
-        log("Exiting...".warn, 1);
-        /*server.close(() => {
-            process.exit(0);
-        });*/
-    } else if(input == "kill") {
-        process.exit(1);
-    } else if(input == "refreshconfig") {
-        refreshConfig();
-    } else if(input == "help") {
-        log("List of commands:".info, 1);
-        log("- quit/exit", 1);
-        log("- kill", 1);
-        log("- refreshconfig", 1);
-        // log("- ", 1);
-        // log("- ", 1);
-    } else {
-        log(input.warn + ": Undefined command.".warn, 1);
-    }
-    rl.prompt();
-});
-rl.prompt();
-
 // Parse config.json
 var config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
 
@@ -62,6 +36,32 @@ function log(string, includeDate) {
     string = string.replace(regex, "");                                                                       // Remove colors characters from the string
 	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                   // Append the string to latest.log
 }
+
+// CLI command handler
+rl.setPrompt("");
+rl.on("line", (input) => {
+    if(input == "quit" || input == "exit") {
+        log("Exiting...".warn, 1);
+        /*server.close(() => {
+            process.exit(0);
+        });*/
+    } else if(input == "kill") {
+        process.exit(1);
+    } else if(input == "refreshconfig") {
+        refreshConfig();
+    } else if(input == "help") {
+        log("List of commands:".info, 1);
+        log("- quit/exit", 1);
+        log("- kill", 1);
+        log("- refreshconfig", 1);
+        // log("- ", 1);
+        // log("- ", 1);
+    } else {
+        log(input.warn + ": Undefined command.".warn, 1);
+    }
+    rl.prompt();
+});
+rl.prompt();
 
 const databaseErrorHandler = function(err) {
     let errors = { errors: { email: "", password: "" }};
