@@ -107,6 +107,7 @@ form .input-field {
     flex-direction: column;
     text-align: left;
 }
+
 .email-error,
 .password-error {
     font-size: 0.9em;

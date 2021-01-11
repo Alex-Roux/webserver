@@ -9,19 +9,6 @@ const maxAge = 3 * 86400; // jwt cookie maxAge
 // Parse config.json
 var config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
 
-const refreshConfig = function() {
-    config = JSON.parse(fs.readFileSync("./config.json", "utf8"))
-    log("Refreshed config.".success, 1);
-}
-
-// Set color theme
-colors.setTheme({
-    info: "cyan",
-    success: "green",
-    warn: "yellow",
-    error: "red"
-});
-
 // Log function
 // This function is used instead of console.log();
 // as it also logs the string to latest.log
@@ -37,19 +24,32 @@ function log(string, includeDate) {
 	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                   // Append the string to latest.log
 }
 
+const refreshConfig = function() {
+    config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+    log("Refreshed config.".success, 1);
+};
+
+// Set color theme
+colors.setTheme({
+    info: "cyan",
+    success: "green",
+    warn: "yellow",
+    error: "red"
+});
+
 // CLI command handler
 rl.setPrompt("");
 rl.on("line", (input) => {
-    if(input == "quit" || input == "exit") {
+    if(input === "quit" || input === "exit") {
         log("Exiting...".warn, 1);
         /*server.close(() => {
             process.exit(0);
         });*/
-    } else if(input == "kill") {
+    } else if(input === "kill") {
         process.exit(1);
-    } else if(input == "refreshconfig") {
+    } else if(input === "refreshconfig") {
         refreshConfig();
-    } else if(input == "help") {
+    } else if(input === "help") {
         log("List of commands:".info, 1);
         log("- quit/exit", 1);
         log("- kill", 1);

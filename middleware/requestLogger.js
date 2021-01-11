@@ -1,5 +1,6 @@
 const utils = require("../utils/utils");
 const colors = require("colors");
+
 // RequestLogger
 // Logs informations about the request
 const requestLogger = function(req, res, next) {
