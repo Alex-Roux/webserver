@@ -3,7 +3,7 @@
 		Website
 		<% if(user) { %>
 		<div class="user">
-			<a href="/logout">Welcome, <%= user.email %></a>
+			<p>Logged in as <%= user.email %>, <a href="/logout" title="Log out">log out</a></p>
 		</div>
 		<% } %>
 	</div>
