@@ -1,26 +1,13 @@
 const fs = require("fs");
 const colors = require("colors");
 const jwt = require("jsonwebtoken");
-// const readline = require("readline");
+const rl = require("readline").createInterface({ input: process.stdin, output: process.stdout });
 
-// rl interface creation for command input
-
-/*const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});*/
+var server;
+const maxAge = 3 * 86400; // jwt cookie maxAge
 
 // Parse config.json
-// Used to get the database URI
-const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
-
-// Set color theme
-colors.setTheme({
-    info: "cyan",
-    success: "green",
-    warn: "yellow",
-    error: "red"
-});
+var config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
 
 // Log function
 // This function is used instead of console.log();
@@ -37,22 +24,48 @@ function log(string, includeDate) {
 	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                   // Append the string to latest.log
 }
 
-// RequestLogger
-// Logs informations about the request
-const requestLogger = function(req, res, next) {
-    let reqUrl = req.url, logString;
-    if(!reqUrl.includes(".")) {
-        logString = "New request : " + "Hostname: ".info + req.hostname + " ║ " + "URL: ".info + req.method + req.url;
-    } else {
-        logString = "New request : ".grey + "Hostname: ".grey + req.hostname.grey + " ║ ".grey + "URL: ".grey + req.method.grey + req.url.grey;
-    }
-    log(logString, 1); // Call log function with info
-    next();
+const refreshConfig = function() {                                  // COMBAK
+    config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+    log("Refreshed config.".success, 1);
 };
+
+// Set color theme
+colors.setTheme({
+    info: "cyan",
+    success: "green",
+    warn: "yellow",
+    error: "red"
+});
+
+// CLI command handler
+rl.setPrompt("");
+rl.on("line", (input) => {
+    if(input === "quit" || input === "exit") {
+        log("Exiting...".warn, 1);
+        /*server.close(() => {
+            process.exit(0);
+        });*/
+    } else if(input === "kill") {
+        process.exit(1);
+    } else if(input === "refreshconfig") {
+        refreshConfig();
+    } else if(input === "help") {
+        log("List of commands:".info, 1);
+        log("- quit/exit", 1);
+        log("- kill", 1);
+        log("- refreshconfig", 1);
+        // log("- ", 1);
+        // log("- ", 1);
+    } else {
+        log(input.warn + ": Undefined command.".warn, 1);
+    }
+    rl.prompt();
+});
+rl.prompt();
 
 const databaseErrorHandler = function(err) {
     let errors = { errors: { email: "", password: "" }};
-    if(err.code === "auth err") {
+    if(err.message === "auth err") {
         errors.errors.password = "Incorrect email address or password.";
         return errors;
     }
@@ -68,18 +81,16 @@ const databaseErrorHandler = function(err) {
     return errors;
 };
 
-const maxAge = 3 * 86400;
 const createToken = function(id) {
     return jwt.sign({ id }, config.jwtSecret, { expiresIn: maxAge });
 };
 
 module.exports = {
     config,
-    //rl,
     colors,
-    log,
-    requestLogger,
-    databaseErrorHandler,
+    server,
     maxAge,
+    log,
+    databaseErrorHandler,
     createToken
 };

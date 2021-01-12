@@ -33,6 +33,20 @@ header {
     background-color: var(--secondary);
 }
 
+.user {
+    text-align: right;
+}
+
+.user a {
+    color: white;
+    text-decoration: none;
+}
+
+.user a:hover {
+    color: red;
+    transition-duration: 500ms;
+}
+
 .header-nav {
     padding: 16px;
     padding-bottom: 24px;
@@ -104,6 +118,14 @@ form fieldset {
 form .input-field {
     margin-top: 16px;
     display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.email-error,
+.password-error {
+    font-size: 0.9em;
+    color: red;
 }
 
 form label {

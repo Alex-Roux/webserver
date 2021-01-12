@@ -1,4 +1,8 @@
 {
     "dbURI": "mongodb+srv://......",
-    "jwtSecret": "databaseSecret"
+    "jwtSecret": "databaseSecret",
+    "allowedIP": ["10.20.30.40", "50.60.70.80"],
+    "blockedIP": ["1.2.3.4", "5.6.7.8"],
+    "whitelist": false,
+    "logResources": true
 }
