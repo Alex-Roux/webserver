@@ -42,7 +42,12 @@ app.use("/", authRoutes);
 
 // Return a 404 page
 app.use((req, res) => {
-    utils.log("█ Error code: 404 : ".warn + req.method + " " + req.url, 1);
-    res.statusCode = 404;
-    res.render("404", { title: "404" });
+    if(!req.url.includes(".")) {
+        utils.log("█ Error code: 404: ".warn + req.method + " " + req.url, 1);
+        res.status(404).render("404", { title: "404" });
+    } else {
+        utils.log("█ Error code: 404: ".warn + req.method + " " + req.url, 1);
+        res.status(404).send("404 Not Found")
+    }
+    ;
 });
