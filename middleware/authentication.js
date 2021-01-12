@@ -6,7 +6,7 @@ const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
     
     if(token) {
-        jwt.verify(token, utils.config.jwtSecret, (err, decodedToken) => {
+        jwt.verify(token, utils.config.jwtSecret, (err) => {
             if(err) {
                 utils.log("Invalid token. ".warn, 1);
                 res.status(403).redirect("/login");
@@ -15,7 +15,7 @@ const requireAuth = (req, res, next) => {
             }
         });
     } else {
-        utils.log("User is not logged in.".grey, 1);
+        utils.log("User is not logged in, redirecting him to /login...".grey, 1);
         res.status(403).redirect("/login");
     }
 };
