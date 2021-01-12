@@ -5,7 +5,12 @@ const firewall = function(req, res, next) {
         utils.log("Blocked by firewall".warn, 1);
         res.status(403).send("403 Forbidden");
     } else{
-        next();
+        if(!utils.config.allowedIP.includes(req.hostname) && utils.config.whitelist) {
+            utils.log("Blocked by firewall".warn, 1);
+            res.status(403).send("403 Forbidden");
+        } else{
+            next();
+        }
     }
 };
 
