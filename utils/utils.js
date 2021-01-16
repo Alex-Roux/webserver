@@ -19,7 +19,7 @@ function log(string, includeDate) {
     }                                                                                                         // -> [2021-01-01 12:01:23 GMT] String
 	string = date + string;                                                                                   // Add the date and the string together
 	console.log(string);                                                                                      // Log the string to the console
-    let regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m|\x1B\x5B32m|\x1B\x5B33m)/gmu); // Define colors characters
+    let regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m|\x1B\x5B32m|\x1B\x5B33m)/gmu);   // Define colors characters
     string = string.replace(regex, "");                                                                       // Remove colors characters from the string
 	fs.appendFile("latest.log", string + "\r\n", function (err) {if (err) { throw err; }});                   // Append the string to latest.log
 }
@@ -29,22 +29,21 @@ const refreshConfig = function() {                                  // COMBAK
     log("Refreshed config.".success, 1);
 };
 
-// Set color theme
+// Set the color theme
 colors.setTheme({
-    info: "cyan",
-    success: "green",
-    warn: "yellow",
+    info: "cyan",       // Usage :
+    success: "green",   // foo.info -> will be cyan in the console
+    warn: "yellow",     // colors.warn(foo) -> will be yellow in the console
     error: "red"
 });
 
 // CLI command handler
-rl.setPrompt("");
-rl.on("line", (input) => {
-    if(input === "quit" || input === "exit") {
-        log("Exiting...".warn, 1);
-        /*server.close(() => {
-            process.exit(0);
-        });*/
+// Use rl to simulate a command prompt
+rl.setPrompt(""); // Reset the prompt (default: >)
+rl.on("line", (input) => { // When a line is sent to rl (by pressing enter)
+    if(input === "quit" || input === "exit") { // I realised that I don't really have to comment every command,
+        log("Exiting...".warn, 1);             // they all seem straightforward enough
+        process.exit(0); // COMBAK: not that "graceful" yet
     } else if(input === "kill") {
         process.exit(1);
     } else if(input === "refreshconfig") {
@@ -61,19 +60,20 @@ rl.on("line", (input) => {
     }
     rl.prompt();
 });
-rl.prompt();
+rl.prompt(); // First prompt
 
+// Handles errors coming from the database (login, signup etc)
 const databaseErrorHandler = function(err) {
     let errors = { errors: { email: "", password: "" }};
-    if(err.message === "auth err") {
+    if(err.message === "auth err") { // (login) If the entered credentials are incorrect
         errors.errors.password = "Incorrect email address or password.";
         return errors;
     }
-    if(err.code === 11000) {
+    if(err.code === 11000) { // (signup) Error code coming from MongoDB (mongoose) -> duplicate email address
         errors.errors.email = "That email address is already registered.";
         return errors;
     }
-    if(err.message.includes("user validation failed:")) {
+    if(err.message.includes("user validation failed:")) { // (validate): IF the validation failed
         Object.values(err.errors).forEach(({properties}) => {
             errors.errors[properties.path] = properties.message;
         });
@@ -81,10 +81,12 @@ const databaseErrorHandler = function(err) {
     return errors;
 };
 
+// Create a JWT token using the user id
 const createToken = function(id) {
     return jwt.sign({ id }, config.jwtSecret, { expiresIn: maxAge });
 };
 
+// Export everything
 module.exports = {
     config,
     colors,
