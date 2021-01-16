@@ -1,4 +1,5 @@
 const express = require("express");
+//const helmet = require("helmet");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes/routes");
@@ -29,6 +30,7 @@ mongoose.connect(utils.config.dbURI, { useNewUrlParser: true, useUnifiedTopology
 
 // Middlewares
 app.use(requestLogger);                             // Logger middleware
+//app.use(helmet());                                  // Use helmet 
 app.use(firewall);                                  // Firewall
 app.use(express.static("public"));                  // Give access to the public resources (images, stylesheets)
 app.use(express.urlencoded({ extended: true }));    // urlencoded payloads
